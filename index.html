@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .switch-check {
+                @apply  bg-gray-400 ring-0 rounded-full outline-none shadow-md duration-300 after:duration-300 after:rounded-full after:absolute after:bg-gray-50 after:outline-none after:-rotate-180 after:flex after:justify-center after:items-center 
+                        peer-checked:after:translate-x-5 peer-checked:after:content-['✔️'] peer-checked:after:rotate-0 peer-hover:after:scale-95
+                        peer-checked:bg-emerald-500 peer-focus:outline-none;
+            }
+            .switch-label {
+                @apply  relative inline-flex items-center cursor-pointer select-none;
+            }
+            .switch-base {
+                @apply  w-12 h-7 after:h-5 after:w-5 after:top-1 after:left-1;
+            }
+            .radio-btn-span {
+                @apply  flex shrink items-center rounded-full p-1 pr-2 hover:bg-gray-400 select-none peer-checked:bg-gray-300 
+                        before:flex before:content-[''] before:bg-white before:rounded-full before:mr-1 before:w-5 before:h-5
+            }
+        }
+
+        @layer utilities {
+            .transition-0-25 {
+                transition: 0.25s ease;
+            }
+            .radio-shadow {
+                box-shadow: inset 0 0 0 0.125em #121212;
+            }
+            .radio-shadow-check {
+                box-shadow: inset 0 0 0 0.4375em rgb(16 185 129);
+            }
+        }
+      </style>
+    <title>Password Generator</title>
+</head>
+<body>
+    <style>
+        .bgContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #121212;
+            background: linear-gradient(
+                135deg,
+                #121212 25%,
+                #1a1a1a 25%,
+                #1a1a1a 50%,
+                #121212 50%,
+                #121212 75%,
+                #1a1a1a 75%,
+                #1a1a1a
+            );
+            background-size: 60px 60px;
+            animation: move 4s linear infinite;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type=number]{
+            -moz-appearance: textfield;
+        }
+
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+
+        
+    </style>
+    <div class="bgContainer flex justify-center items-center h-screen">
+        
+        <div id="div-generator-password" class="bg-neutral-100 p-4 rounded drop-shadow-xl">
+            <div class="m-auto">
+                <div class="text-3xl py-2">
+                    Customize Password
+                </div>
+                <div class="flex items-center py-2">
+
+                    <div class="radio-btn">
+                        <form class="flex flex-wrap flex-col">
+                            <label class="flex cursor-pointer font-medium relative overflow-hidden mb-1">
+                                <input class="hidden peer" type="radio" name="radio" value="easy" checked="">
+                                <span class="group radio-btn-span transition-0-25 before:transition-0-25 before:radio-shadow peer-checked:before:radio-shadow-check">
+                                    Easy
+                                </span>
+                            </label>
+                            <label class="flex cursor-pointer font-medium relative overflow-hidden mb-1">
+                                <input class="hidden peer" type="radio" name="radio" value="medium">
+                                <span class="group radio-btn-span transition-0-25 before:transition-0-25 before:radio-shadow peer-checked:before:radio-shadow-check">
+                                    Medium
+                                </span>
+                            </label>
+                            <label class="flex cursor-pointer font-medium relative overflow-hidden mb-1">
+                                <input class="hidden peer" type="radio" name="radio" value="hard">
+                                <span class="group radio-btn-span transition-0-25 before:transition-0-25 before:radio-shadow peer-checked:before:radio-shadow-check">
+                                    Hard
+                                </span>
+                            </label>
+                        </form>
+                    </div>
+
+                    <div class="p-2 flex justify-center">
+                        <div class="flex flex-row font-bold text-white">
+                            <button id="decrease" class="bg-emerald-500 rounded-l-lg w-6 pb-1" type="button">-</button>
+                            <input id="counter" max="50" min="4" class="text-black items-center w-16 p-1 text-2xl text-center" type="number" name="logitud-pass">
+                            <button id="increase" class="bg-emerald-500 rounded-r-lg w-6 pb-1" type="button">+</button>
+                        </div>
+                        <!-- <div><input type="range"></div> -->
+                    </div>
+
+                    <div id="checkbox" class="flex flex-col gap-1 text-base">
+                        <label class="switch-label">
+                            <input id="upperCheck" type="checkbox" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" class="sr-only peer" checked>
+                            <div class="switch-base group switch-check"></div>
+                            <span class="pl-2">Uppercase</span>
+                        </label>
+                        <label class="switch-label">
+                            <input id="lowerCheck" type="checkbox" value="abcdefghijklmnopqrstuvwxyz" class="sr-only peer" checked>
+                            <div class="switch-base group switch-check"></div>
+                            <span class="pl-2">Lowercase</span>
+                        </label>
+                        <label class="switch-label">
+                            <input id="numberCheck" type="checkbox" value="123456789" class="sr-only peer">
+                            <div class="switch-base group switch-check"></div>
+                            <span class="pl-2">Numbers</span>
+                        </label>
+                        <label class="switch-label">
+                            <input id="symbolCheck" type="checkbox" value="!@#$%^&*()-_=+[]{}|;:\,.<>/?`~" class="sr-only peer">
+                            <div class="switch-base group switch-check"></div>
+                            <span class="pl-2">Symbols</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-2 flex justify-center w-full">
+                <button
+                    id="reload"
+                    class="py-1 rounded-s-lg text-white bg-zinc-400 flex justify-center items-center w-10 h-10 hover:bg-emerald-600"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50" style="fill: #fff;">
+                        <path d="M 25 2 A 1.0001 1.0001 0 1 0 25 4 C 36.609534 4 46 13.390466 46 25 C 46 36.609534 36.609534 46 25 46 C 13.390466 46 4 36.609534 4 25 C 4 18.307314 7.130711 12.364806 12 8.5195312 L 12 15 A 1.0001 1.0001 0 1 0 14 15 L 14 6.5507812 L 14 5 L 4 5 A 1.0001 1.0001 0 1 0 4 7 L 10.699219 7 C 5.4020866 11.214814 2 17.712204 2 25 C 2 37.690466 12.309534 48 25 48 C 37.690466 48 48 37.690466 48 25 C 48 12.309534 37.690466 2 25 2 z"></path>
+                    </svg>
+                </button>
+                <input
+                  id="password"
+                  value="tgf4r3456"
+                  readonly=true
+                  class="py-1 indent-2  focus:outline-none w-1/2 copy-text"
+                  name="text"
+                  type="text"
+                />
+                <button
+                  class="copy-button py-1 rounded-e-lg text-white bg-zinc-400 flex justify-center items-center w-10 h-10 hover:bg-emerald-600"
+                  onclick="copyText()"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                  >
+                    <rect width="24" height="24"></rect>
+                    <rect
+                      x="4"
+                      y="8"
+                      width="12"
+                      height="12"
+                      rx="1"
+                      stroke="#FFFFFF"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></rect>
+                    <path
+                      d="M8 6V5C8 4.44772 8.44772 4 9 4H19C19.5523 4 20 4.44772 20 5V15C20 15.5523 19.5523 16 19 16H18"
+                      stroke="#FFFFFF"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-dasharray="2 2"
+                    ></path>
+                  </svg>
+                </button>
+            </div>
+
+            <script>
+                let counter = 8;
+                let inputCounter = document.getElementById('counter');
+                inputCounter.value = counter;
+
+                function generatePassword(length) {
+                    const upperCheck = document.getElementById('upperCheck');
+                    const upper = (upperCheck.checked) ? upperCheck.value : '';
+                    const lowerCheck = document.getElementById('lowerCheck');
+                    const lower = (lowerCheck.checked) ? lowerCheck.value : '';
+                    const numberCheck = document.getElementById('numberCheck');
+                    const numbers = (numberCheck.checked) ? numberCheck.value : '';
+                    const symbolCheck = document.getElementById('symbolCheck');
+                    const symbols = (symbolCheck.checked) ? symbolCheck.value : '';
+                    // const lower = "abcdefghijklmnopqrstuvwxyz";
+                    // const numbers = "123456789";
+                    // const symbols = "!@#$%^&*()-_=+[]{}|;:\,.<>/?`~";
+
+                    const allCharacters = upper + lower + numbers + symbols;
+                    let password = '';
+
+                    // Aseguramos al menos un carácter de cada tipo
+                    password += (upper) ? upper[Math.floor(Math.random() * upper.length)] : '';
+                    password += (lower) ? lower[Math.floor(Math.random() * lower.length)] : '';
+                    password += (numbers) ? numbers[Math.floor(Math.random() * numbers.length)] : '';
+                    password += (symbols) ? symbols[Math.floor(Math.random() * symbols.length)] : '';
+                    console.log(length)
+
+
+                    // Rellenamos el resto de la longitud deseada con caracteres aleatorios
+                    for (let i = password.length; i < length; i++) {
+                        password += allCharacters[Math.floor(Math.random() * allCharacters.length)];
+                    }
+
+                    // Mezclamos los caracteres para evitar patrones
+                    password = password.split('').sort(() => Math.random() - 0.5).join('');
+                    return password;
+                }
+
+                let inputPassword = document.getElementById('password');
+                inputPassword.value = generatePassword(counter);
+                
+                document.getElementById('increase').addEventListener('click', function() {
+                    var input = document.getElementById('counter');
+                    var valorActual = parseInt(input.value) + 1;
+                    input.value = valorActual && valorActual < 50 ? valorActual : 50;
+                    counter = input.value;
+                    inputPassword.value = generatePassword(input.value);
+                });
+
+                document.getElementById('decrease').addEventListener('click', function() {
+                    var input = document.getElementById('counter');
+                    var valorActual = parseInt(input.value) - 1;
+                    input.value = valorActual && valorActual > 4 ? valorActual : 4;
+                    counter = input.value;
+                    inputPassword.value = generatePassword(input.value);
+                });
+
+                document.getElementById('reload').addEventListener('click', function() {
+                    inputPassword.value = generatePassword(counter);
+                });
+
+                document.getElementById('counter').addEventListener('change', function() {
+                    var input = document.getElementById('counter');
+                    var valorActual = parseInt(input.value) || 0;
+
+                    input.value = (!Number.isInteger(valorActual)) ? Math.floor(valorActual) : valorActual;
+                    console.log(valorActual)
+                    if (valorActual < 4) {
+                        input.value = 4;
+                    } else if (valorActual > 50) {
+                        input.value = 50;
+                    }
+                    counter = input.value;
+                    inputPassword.value = generatePassword(input.value);
+                })
+
+                document.querySelectorAll('input[name="radio"]').forEach((radio) => {
+                    radio.addEventListener('change', () => {
+                        if (radio.checked) {
+                            console.log(`Valor seleccionado: ${radio.value}`);
+                            if(radio.value == 'easy') {
+                                document.getElementById('upperCheck').checked = true;
+                                document.getElementById('lowerCheck').checked = true;
+                                document.getElementById('numberCheck').checked = false;
+                                document.getElementById('symbolCheck').checked = false;
+                                inputPassword.value = generatePassword(counter);
+                            }
+                            if(radio.value == 'medium') {
+                                document.getElementById('upperCheck').checked = true;
+                                document.getElementById('lowerCheck').checked = true;
+                                document.getElementById('numberCheck').checked = true;
+                                document.getElementById('symbolCheck').checked = false;
+                                inputPassword.value = generatePassword(counter);
+                            }
+                            if(radio.value == 'hard') {
+                                document.getElementById('upperCheck').checked = true;
+                                document.getElementById('lowerCheck').checked = true;
+                                document.getElementById('numberCheck').checked = true;
+                                document.getElementById('symbolCheck').checked = true;
+                                inputPassword.value = generatePassword(counter);
+                            }
+                        }
+                    });
+                });
+
+                function copyText() {
+                    const texto = document.getElementById('password').value;
+                    const copyButton = document.querySelector(".copy-button");
+                    const duplicateButton = copyButton.innerHTML;
+                    navigator.clipboard.writeText(texto)
+                        .then(() => {
+                            console.log('Texto copiado al portapapeles', texto);
+                            copyButton.classList.toggle("bg-emerald-600");
+                            copyButton.innerHTML = "✔️";
+
+                            setTimeout(function () {
+                                copyButton.classList.toggle("bg-emerald-600");
+                                copyButton.innerHTML = duplicateButton;
+                            }, 1500);
+                        })
+                }
+
+                // Seleccionamos todos los checkbox dentro del contenedor con id 'checkbox'
+                const checkboxes = document.querySelectorAll('#checkbox input[type="checkbox"]');
+
+                // Función para validar que al menos un checkbox esté activo
+                function validateCheckboxes() {
+                    // Contamos los checkboxes que están marcados
+                    const checkedCount = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
+                    
+                    // Si solo queda un checkbox marcado, evitamos que se desmarque
+                    checkboxes.forEach(checkbox => {
+                        checkbox.disabled = (checkedCount === 1 && checkbox.checked) ? true : false
+                    });
+                }
+
+                // Agregamos el evento de cambio a cada checkbox
+                checkboxes.forEach(checkbox => {
+                    console.log(checkbox)
+                    checkbox.addEventListener('change', validateCheckboxes);
+                    checkbox.addEventListener('change', (event) => {
+                        inputPassword.value = generatePassword(counter);
+                    });
+                });
+
+                validateCheckboxes();
+
+
+            </script>
+              
+        </div>
+    </div>
+</body>
+</html>
