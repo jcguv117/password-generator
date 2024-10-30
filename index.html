@@ -23,6 +23,10 @@
             }
         }
 
+        body {
+            font-family: 'math', Tahoma, Verdana, sans-serif;
+        }
+
         @layer utilities {
             .transition-0-25 {
                 transition: 0.25s ease;
@@ -79,8 +83,8 @@
 
         
     </style>
-    <div class="bgContainer flex justify-center items-center h-screen">
-        
+    <div class="bgContainer flex flex-col justify-center items-center h-screen gap-5">
+        <h1 class="text-4xl text-white font-bold mb-5 uppercase">Password Generator</h1>
         <div id="div-generator-password" class="bg-neutral-100 p-4 rounded drop-shadow-xl">
             <div class="m-auto">
                 <div class="text-3xl py-2">
@@ -89,7 +93,7 @@
                 <div class="flex items-center py-2">
 
                     <div class="radio-btn">
-                        <form class="flex flex-wrap flex-col">
+                        <form class="flex flex-wrap flex-col text-base">
                             <label class="flex cursor-pointer font-medium relative overflow-hidden mb-1">
                                 <input class="hidden peer" type="radio" name="radio" value="easy" checked="">
                                 <span class="group radio-btn-span transition-0-25 before:transition-0-25 before:radio-shadow peer-checked:before:radio-shadow-check">
@@ -120,7 +124,7 @@
                         <!-- <div><input type="range"></div> -->
                     </div>
 
-                    <div id="checkbox" class="flex flex-col gap-1 text-base">
+                    <div id="checkbox" class="flex flex-col gap-1 text-base font-medium">
                         <label class="switch-label">
                             <input id="upperCheck" type="checkbox" value="ABCDEFGHIJKLMNOPQRSTUVWXYZ" class="sr-only peer" checked>
                             <div class="switch-base group switch-check"></div>
@@ -137,7 +141,7 @@
                             <span class="pl-2">Numbers</span>
                         </label>
                         <label class="switch-label">
-                            <input id="symbolCheck" type="checkbox" value="!@#$%^&*()-_=+[]{}|;:\,.<>/?`~" class="sr-only peer">
+                            <input id="symbolCheck" type="checkbox" value="!@#$%^&*()-_=+[]{}|;:\,.<>/?~" class="sr-only peer">
                             <div class="switch-base group switch-check"></div>
                             <span class="pl-2">Symbols</span>
                         </label>
@@ -220,7 +224,6 @@
                     password += (lower) ? lower[Math.floor(Math.random() * lower.length)] : '';
                     password += (numbers) ? numbers[Math.floor(Math.random() * numbers.length)] : '';
                     password += (symbols) ? symbols[Math.floor(Math.random() * symbols.length)] : '';
-                    console.log(length)
 
 
                     // Rellenamos el resto de la longitud deseada con caracteres aleatorios
@@ -261,7 +264,6 @@
                     var valorActual = parseInt(input.value) || 0;
 
                     input.value = (!Number.isInteger(valorActual)) ? Math.floor(valorActual) : valorActual;
-                    console.log(valorActual)
                     if (valorActual < 4) {
                         input.value = 4;
                     } else if (valorActual > 50) {
@@ -274,7 +276,6 @@
                 document.querySelectorAll('input[name="radio"]').forEach((radio) => {
                     radio.addEventListener('change', () => {
                         if (radio.checked) {
-                            console.log(`Valor seleccionado: ${radio.value}`);
                             if(radio.value == 'easy') {
                                 document.getElementById('upperCheck').checked = true;
                                 document.getElementById('lowerCheck').checked = true;
@@ -333,7 +334,6 @@
 
                 // Agregamos el evento de cambio a cada checkbox
                 checkboxes.forEach(checkbox => {
-                    console.log(checkbox)
                     checkbox.addEventListener('change', validateCheckboxes);
                     checkbox.addEventListener('change', (event) => {
                         inputPassword.value = generatePassword(counter);
